@@ -24,6 +24,16 @@ jobs:
         with:
           lfs: true
 
+      - name: Cache Perl dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/perl5
+            ~/.cpanm
+          key: ${{ runner.os }}-perl-deps-${{ hashFiles('.github/workflows/update_maps.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-perl-deps-
+
       - name: Install dependencies
         run: |
           sudo apt install cpanminus
